@@ -1,3 +1,9 @@
+Unmodified fork of [softprops/action-gh-release](https://github.com/softprops/action-gh-release).
+
+Original readme below:
+
+---
+
 <div align="center">
   📦 :octocat:
 </div>

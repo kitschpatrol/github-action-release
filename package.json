@@ -14,8 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/softprops/action-gh-release.git"
+    "url": "git+https://github.com/kitschpatrol/action-gh-release.git"
   },
+  "engines": {
+    "node": ">=20.11.1",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.9.0",
   "keywords": [
     "actions"
   ],
