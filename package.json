@@ -36,7 +36,7 @@
     "mime": "^3.0.0"
   },
   "devDependencies": {
-    "@kitschpatrol/prettier-config": "^4.7.6",
+    "@kitschpatrol/prettier-config": "^4.7.9",
     "@types/glob": "^8.1.0",
     "@types/jest": "^29.5.13",
     "@types/mime": "^3.0.4",
