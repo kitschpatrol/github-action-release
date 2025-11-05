@@ -1,3 +1,126 @@
+## 2.4.1
+
+## What's Changed
+
+### Other Changes 🔄
+
+* fix(util): support brace expansion globs containing commas in parseInputFiles by @Copilot in https://github.com/softprops/action-gh-release/pull/672
+* fix: gracefully fallback to body when body_path cannot be read by @Copilot in https://github.com/softprops/action-gh-release/pull/671
+
+## 2.4.0
+
+## What's Changed
+
+### Exciting New Features 🎉
+
+* feat(action): respect working_directory for files globs by @stephenway in https://github.com/softprops/action-gh-release/pull/667
+
+## 2.3.4
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix(action): handle 422 already_exists race condition by @stephenway in https://github.com/softprops/action-gh-release/pull/665
+
+### Other Changes 🔄
+
+- dependency updates
+
+## 2.3.3
+
+## What's Changed
+
+### Exciting New Features 🎉
+
+* feat: add input option `overwrite_files` by @asfernandes in https://github.com/softprops/action-gh-release/pull/343
+
+### Other Changes 🔄
+
+- dependency updates
+
+## 2.3.2
+
+* fix: revert fs `readableWebStream` change
+
+## 2.3.1
+
+### Bug fixes 🐛
+
+* fix: fix file closing issue by @WailGree in https://github.com/softprops/action-gh-release/pull/629
+
+## 2.3.0
+
+* Migrate from jest to vitest
+* Replace `mime` with `mime-types`
+* Bump to use node 24
+* Dependency updates
+
+## 2.2.2
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: updating release draft status from true to false by @galargh in https://github.com/softprops/action-gh-release/pull/316
+
+### Other Changes 🔄
+
+* chore: simplify ref_type test by @steinybot in https://github.com/softprops/action-gh-release/pull/598
+* fix(docs): clarify the default for tag_name by @muzimuzhi in https://github.com/softprops/action-gh-release/pull/599
+* test(release): add unit tests when searching for a release by @rwaskiewicz in https://github.com/softprops/action-gh-release/pull/603
+* dependency updates
+
+## 2.2.1
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: big file uploads by @xen0n in https://github.com/softprops/action-gh-release/pull/562
+
+### Other Changes 🔄
+* chore(deps): bump @types/node from 22.10.1 to 22.10.2 by @dependabot in https://github.com/softprops/action-gh-release/pull/559
+* chore(deps): bump @types/node from 22.10.2 to 22.10.5 by @dependabot in https://github.com/softprops/action-gh-release/pull/569
+* chore: update error and warning messages for not matching files in files field by @ytimocin in https://github.com/softprops/action-gh-release/pull/568
+
+## 2.2.0
+
+## What's Changed
+
+### Exciting New Features 🎉
+
+* feat: read the release assets asynchronously by @xen0n in https://github.com/softprops/action-gh-release/pull/552
+
+### Bug fixes 🐛
+
+* fix(docs): clarify the default for tag_name by @alexeagle in https://github.com/softprops/action-gh-release/pull/544
+
+### Other Changes 🔄
+
+* chore(deps): bump typescript from 5.6.3 to 5.7.2 by @dependabot in https://github.com/softprops/action-gh-release/pull/548
+* chore(deps): bump @types/node from 22.9.0 to 22.9.4 by @dependabot in https://github.com/softprops/action-gh-release/pull/547
+* chore(deps): bump cross-spawn from 7.0.3 to 7.0.6 by @dependabot in https://github.com/softprops/action-gh-release/pull/545
+* chore(deps): bump @vercel/ncc from 0.38.2 to 0.38.3 by @dependabot in https://github.com/softprops/action-gh-release/pull/543
+* chore(deps): bump prettier from 3.3.3 to 3.4.1 by @dependabot in https://github.com/softprops/action-gh-release/pull/550
+* chore(deps): bump @types/node from 22.9.4 to 22.10.1 by @dependabot in https://github.com/softprops/action-gh-release/pull/551
+* chore(deps): bump prettier from 3.4.1 to 3.4.2 by @dependabot in https://github.com/softprops/action-gh-release/pull/554
+
+## 2.1.0
+
+## What's Changed
+
+### Exciting New Features 🎉
+* feat: add support for release assets with multiple spaces within the name by @dukhine in https://github.com/softprops/action-gh-release/pull/518
+* feat: preserve upload order by @richarddd in https://github.com/softprops/action-gh-release/pull/500
+
+### Other Changes 🔄
+* chore(deps): bump @types/node from 22.8.2 to 22.8.7 by @dependabot in https://github.com/softprops/action-gh-release/pull/539
+
+## 2.0.9
+
+- maintenance release with updated dependencies
+
 ## 2.0.8
 
 ### Other Changes 🔄
