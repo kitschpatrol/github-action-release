@@ -235,61 +235,51 @@ describe('util', () => {
       );
     });
     it('supports discussion category names', () => {
-      assert.deepStrictEqual(
-        parseConfig({
-          INPUT_DISCUSSION_CATEGORY_NAME: 'releases',
-        }),
-        {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: undefined,
-          input_prerelease: undefined,
-          input_files: [],
-          input_preserve_order: undefined,
-          input_name: undefined,
-          input_overwrite_files: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: 'releases',
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
-        },
-      );
+      assert.deepStrictEqual(parseConfig({ INPUT_DISCUSSION_CATEGORY_NAME: 'releases' }), {
+        github_ref: '',
+        github_repository: '',
+        github_token: '',
+        input_working_directory: undefined,
+        input_append_body: false,
+        input_body: undefined,
+        input_body_path: undefined,
+        input_draft: undefined,
+        input_prerelease: undefined,
+        input_files: [],
+        input_preserve_order: undefined,
+        input_name: undefined,
+        input_overwrite_files: undefined,
+        input_tag_name: undefined,
+        input_fail_on_unmatched_files: false,
+        input_target_commitish: undefined,
+        input_discussion_category_name: 'releases',
+        input_generate_release_notes: false,
+        input_make_latest: undefined,
+      });
     });
 
     it('supports generating release notes', () => {
-      assert.deepStrictEqual(
-        parseConfig({
-          INPUT_GENERATE_RELEASE_NOTES: 'true',
-        }),
-        {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: undefined,
-          input_prerelease: undefined,
-          input_preserve_order: undefined,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: true,
-          input_make_latest: undefined,
-        },
-      );
+      assert.deepStrictEqual(parseConfig({ INPUT_GENERATE_RELEASE_NOTES: 'true' }), {
+        github_ref: '',
+        github_repository: '',
+        github_token: '',
+        input_working_directory: undefined,
+        input_append_body: false,
+        input_body: undefined,
+        input_body_path: undefined,
+        input_draft: undefined,
+        input_prerelease: undefined,
+        input_preserve_order: undefined,
+        input_files: [],
+        input_overwrite_files: undefined,
+        input_name: undefined,
+        input_tag_name: undefined,
+        input_fail_on_unmatched_files: false,
+        input_target_commitish: undefined,
+        input_discussion_category_name: undefined,
+        input_generate_release_notes: true,
+        input_make_latest: undefined,
+      });
     });
 
     it('prefers GITHUB_TOKEN over token input for backwards compatibility', () => {
@@ -355,89 +345,73 @@ describe('util', () => {
       );
     });
     it('parses basic config with draft and prerelease', () => {
-      assert.deepStrictEqual(
-        parseConfig({
-          INPUT_DRAFT: 'false',
-          INPUT_PRERELEASE: 'true',
-        }),
-        {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: false,
-          input_prerelease: true,
-          input_preserve_order: undefined,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
-        },
-      );
+      assert.deepStrictEqual(parseConfig({ INPUT_DRAFT: 'false', INPUT_PRERELEASE: 'true' }), {
+        github_ref: '',
+        github_repository: '',
+        github_token: '',
+        input_working_directory: undefined,
+        input_append_body: false,
+        input_body: undefined,
+        input_body_path: undefined,
+        input_draft: false,
+        input_prerelease: true,
+        input_preserve_order: undefined,
+        input_files: [],
+        input_overwrite_files: undefined,
+        input_name: undefined,
+        input_tag_name: undefined,
+        input_fail_on_unmatched_files: false,
+        input_target_commitish: undefined,
+        input_discussion_category_name: undefined,
+        input_generate_release_notes: false,
+        input_make_latest: undefined,
+      });
     });
     it('parses basic config where make_latest is passed', () => {
-      assert.deepStrictEqual(
-        parseConfig({
-          INPUT_MAKE_LATEST: 'false',
-        }),
-        {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: undefined,
-          input_prerelease: undefined,
-          input_preserve_order: undefined,
-          input_files: [],
-          input_name: undefined,
-          input_overwrite_files: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: 'false',
-        },
-      );
+      assert.deepStrictEqual(parseConfig({ INPUT_MAKE_LATEST: 'false' }), {
+        github_ref: '',
+        github_repository: '',
+        github_token: '',
+        input_working_directory: undefined,
+        input_append_body: false,
+        input_body: undefined,
+        input_body_path: undefined,
+        input_draft: undefined,
+        input_prerelease: undefined,
+        input_preserve_order: undefined,
+        input_files: [],
+        input_name: undefined,
+        input_overwrite_files: undefined,
+        input_tag_name: undefined,
+        input_fail_on_unmatched_files: false,
+        input_target_commitish: undefined,
+        input_discussion_category_name: undefined,
+        input_generate_release_notes: false,
+        input_make_latest: 'false',
+      });
     });
     it('parses basic config with append_body', () => {
-      assert.deepStrictEqual(
-        parseConfig({
-          INPUT_APPEND_BODY: 'true',
-        }),
-        {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: true,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: undefined,
-          input_prerelease: undefined,
-          input_preserve_order: undefined,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
-        },
-      );
+      assert.deepStrictEqual(parseConfig({ INPUT_APPEND_BODY: 'true' }), {
+        github_ref: '',
+        github_repository: '',
+        github_token: '',
+        input_working_directory: undefined,
+        input_append_body: true,
+        input_body: undefined,
+        input_body_path: undefined,
+        input_draft: undefined,
+        input_prerelease: undefined,
+        input_preserve_order: undefined,
+        input_files: [],
+        input_overwrite_files: undefined,
+        input_name: undefined,
+        input_tag_name: undefined,
+        input_fail_on_unmatched_files: false,
+        input_target_commitish: undefined,
+        input_discussion_category_name: undefined,
+        input_generate_release_notes: false,
+        input_make_latest: undefined,
+      });
     });
   });
   describe('isTag', () => {

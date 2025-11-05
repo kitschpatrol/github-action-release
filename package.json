@@ -3,49 +3,49 @@
   "version": "2.4.1",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases.",
-  "main": "lib/main.js",
-  "scripts": {
-    "build": "ncc build src/main.ts --minify --target es2022",
-    "build-debug": "ncc build src/main.ts --v8-cache --source-map",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest --coverage",
-    "updatetag": "git tag -d v2 && git push origin :v2 && git tag -a v2 -m '' && git push origin v2",
-    "clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
-    "lint": "prettier-config --check",
-    "fix": "prettier-config --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kitschpatrol/github-action-release.git"
-  },
   "keywords": [
     "github-action",
     "action"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitschpatrol/github-action-release.git"
+  },
   "author": "softprops",
+  "main": "lib/main.js",
+  "scripts": {
+    "build": "ncc build src/main.ts --minify --target es2022",
+    "build-debug": "ncc build src/main.ts --v8-cache --source-map",
+    "clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
+    "fix": "ksc-prettier fix",
+    "lint": "ksc-prettier lint",
+    "test": "vitest --coverage",
+    "typecheck": "tsc --noEmit",
+    "updatetag": "git tag -d v2 && git push origin :v2 && git tag -a v2 -m '' && git push origin v2"
+  },
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.1",
-    "@octokit/plugin-retry": "^8.0.2",
-    "@octokit/plugin-throttling": "^11.0.2",
+    "@octokit/plugin-retry": "^8.0.3",
+    "@octokit/plugin-throttling": "^11.0.3",
     "glob": "^11.0.3",
     "mime-types": "^3.0.1"
   },
   "devDependencies": {
-    "@kitschpatrol/prettier-config": "^4.7.9",
+    "@kitschpatrol/prettier-config": "^5.8.1",
     "@types/glob": "^9.0.0",
     "@types/mime-types": "^3.0.1",
-    "@types/node": "^20.19.19",
+    "@types/node": "^20.19.24",
     "@vercel/ncc": "^0.38.4",
     "@vitest/coverage-v8": "^3.2.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-formatter": "^7.2.2",
-    "vitest": "^3.1.4"
+    "vitest": "^3.2.4"
   },
+  "packageManager": "pnpm@10.20.0",
   "engines": {
     "node": ">=20.19.0",
     "pnpm": ">=9.0.0"
-  },
-  "packageManager": "pnpm@9.10.0"
+  }
 }
