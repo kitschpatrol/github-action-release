@@ -41,9 +41,11 @@ async function run() {
             return true;
           }
         },
-        onAbuseLimit: (retryAfter, options) => {
+        onSecondaryRateLimit: (retryAfter, options) => {
           // does not retry, only logs a warning
-          console.warn(`Abuse detected for request ${options.method} ${options.url}`);
+          console.warn(
+            `Secondary rate limit detected for request ${options.method} ${options.url}`,
+          );
         },
       },
     });

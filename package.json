@@ -1,6 +1,6 @@
 {
   "name": "github-action-release",
-  "version": "2.4.1",
+  "version": "2.5.1",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases.",
   "keywords": [
@@ -14,8 +14,8 @@
   "author": "softprops",
   "main": "lib/main.js",
   "scripts": {
-    "build": "ncc build src/main.ts --minify --target es2022",
-    "build-debug": "ncc build src/main.ts --v8-cache --source-map",
+    "build": "rolldown -c rolldown.config.ts --minify",
+    "build-debug": "rolldown -c rolldown.config.ts --sourcemap",
     "clean": "git rm -f pnpm-lock.yaml ; git clean -fdX",
     "fix": "ksc-prettier fix",
     "lint": "ksc-prettier lint",
@@ -24,8 +24,8 @@
     "updatetag": "git tag -d v2 && git push origin :v2 && git tag -a v2 -m '' && git push origin v2"
   },
   "dependencies": {
-    "@actions/core": "^2.0.2",
-    "@actions/github": "^7.0.0",
+    "@actions/core": "^3.0.0",
+    "@actions/github": "^9.0.0",
     "@octokit/plugin-retry": "^8.1.0",
     "@octokit/plugin-throttling": "^11.0.3",
     "glob": "^13.0.6",
@@ -36,12 +36,12 @@
     "@types/glob": "^9.0.0",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^20.19.35",
-    "@vercel/ncc": "^0.38.4",
-    "@vitest/coverage-v8": "^4.0.17",
+    "@vitest/coverage-v8": "^4.0.18",
+    "rolldown": "^1.0.0-rc.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "typescript-formatter": "^7.2.2",
-    "vitest": "^4.0.4"
+    "vitest": "^4.0.18"
   },
   "packageManager": "pnpm@10.30.3",
   "engines": {
