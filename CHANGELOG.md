@@ -1,3 +1,106 @@
+## 2.6.1
+
+`2.6.1` is a patch release focused on restoring linked discussion thread creation when
+`discussion_category_name` is set. It fixes `#764`, where the draft-first publish flow
+stopped carrying the discussion category through the final publish step.
+
+If you still hit an issue after upgrading, please open a report with the bug template and include a minimal repro or sanitized workflow snippet where possible.
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: preserve discussion category on publish by @chenrui333 in https://github.com/softprops/action-gh-release/pull/765
+
+## 2.6.0
+
+`2.6.0` is a minor release centered on `previous_tag` support for `generate_release_notes`,
+which lets workflows pin GitHub's comparison base explicitly instead of relying on the default range.
+It also includes the recent concurrent asset upload recovery fix, a `working_directory` docs sync,
+a checked-bundle freshness guard for maintainers, and clearer immutable-prerelease guidance where
+GitHub platform behavior imposes constraints on how prerelease asset uploads can be published.
+
+If you still hit an issue after upgrading, please open a report with the bug template and include a minimal repro or sanitized workflow snippet where possible.
+
+## What's Changed
+
+### Exciting New Features 🎉
+
+* feat: support previous_tag for generate_release_notes by @pocesar in https://github.com/softprops/action-gh-release/pull/372
+
+### Bug fixes 🐛
+
+* fix: recover concurrent asset metadata 404s by @chenrui333 in https://github.com/softprops/action-gh-release/pull/760
+
+### Other Changes 🔄
+
+* docs: clarify reused draft release behavior by @chenrui333 in https://github.com/softprops/action-gh-release/pull/759
+* docs: clarify working_directory input by @chenrui333 in https://github.com/softprops/action-gh-release/pull/761
+* ci: verify dist bundle freshness by @chenrui333 in https://github.com/softprops/action-gh-release/pull/762
+* fix: clarify immutable prerelease uploads by @chenrui333 in https://github.com/softprops/action-gh-release/pull/763
+
+## 2.5.3
+
+`2.5.3` is a patch release focused on the remaining path-handling and release-selection bugs uncovered after `2.5.2`.
+It fixes `#639`, `#571`, `#280`, `#614`, `#311`, `#403`, and `#368`.
+It also adds documentation clarifications for `#541`, `#645`, `#542`, `#393`, and `#411`,
+where the current behavior is either usage-sensitive or constrained by GitHub platform limits rather than an action-side runtime bug.
+
+If you still hit an issue after upgrading, please open a report with the bug template and include a minimal repro or sanitized workflow snippet where possible.
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: prefer token input over GITHUB_TOKEN by @chenrui333 in https://github.com/softprops/action-gh-release/pull/751
+* fix: clean up duplicate drafts after canonicalization by @chenrui333 in https://github.com/softprops/action-gh-release/pull/753
+* fix: support Windows-style file globs by @chenrui333 in https://github.com/softprops/action-gh-release/pull/754
+* fix: normalize refs-tag inputs by @chenrui333 in https://github.com/softprops/action-gh-release/pull/755
+* fix: expand tilde file paths by @chenrui333 in https://github.com/softprops/action-gh-release/pull/756
+
+### Other Changes 🔄
+
+* docs: clarify token precedence by @chenrui333 in https://github.com/softprops/action-gh-release/pull/752
+* docs: clarify GitHub release limits by @chenrui333 in https://github.com/softprops/action-gh-release/pull/758
+* documentation clarifications for empty-token handling, `preserve_order`, and special-character asset filename behavior
+
+## 2.5.2
+
+`2.5.2` is a patch release focused on the remaining release-creation and prerelease regressions in the `2.5.x` bug-fix cycle.
+It fixes `#705`, fixes `#708`, fixes `#740`, fixes `#741`, and fixes `#722`.
+Regression testing covers the shared-tag race, prerelease event behavior, dotfile asset labels,
+same-filename concurrent uploads, and blocked-tag cleanup behavior.
+
+If you still hit an issue after upgrading, please open a report with the bug template and include a minimal repro or sanitized workflow snippet where possible.
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: canonicalize releases after concurrent create by @chenrui333 in https://github.com/softprops/action-gh-release/pull/746
+* fix: preserve prereleased events for prereleases by @chenrui333 in https://github.com/softprops/action-gh-release/pull/748
+* fix: restore dotfile asset labels by @chenrui333 in https://github.com/softprops/action-gh-release/pull/749
+* fix: handle upload already_exists races across workflows by @api2062 in https://github.com/softprops/action-gh-release/pull/745
+* fix: clean up orphan drafts when tag creation is blocked by @chenrui333 in https://github.com/softprops/action-gh-release/pull/750
+
+## 2.5.1
+
+`2.5.1` is a patch release focused on regressions introduced in `2.5.0` and on release lookup reliability.
+It fixes `#713`, addresses `#703`, and fixes `#724`. Regression testing shows that
+current `master` no longer reproduces the finalize-race behavior reported in `#704` and `#709`.
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: fetch correct asset URL after finalization; test; some refactoring by @pzhlkj6612 in https://github.com/softprops/action-gh-release/pull/738
+* fix: release marked as 'latest' despite make_latest: false by @Boshen in https://github.com/softprops/action-gh-release/pull/715
+* fix: use getReleaseByTag API instead of iterating all releases by @kim-em in https://github.com/softprops/action-gh-release/pull/725
+
+### Other Changes 🔄
+
+* dependency updates, including the ESM/runtime compatibility refresh in https://github.com/softprops/action-gh-release/pull/731
+
 ## 2.5.0
 
 ## What's Changed

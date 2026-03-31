@@ -1,6 +1,10 @@
 import {
   alignAssetName,
+  expandHomePattern,
   isTag,
+  normalizeFilePattern,
+  normalizeGlobPattern,
+  normalizeTagName,
   parseConfig,
   parseInputFiles,
   paths,
@@ -170,6 +174,29 @@ describe('util', () => {
     });
   });
   describe('parseConfig', () => {
+    const baseParsedConfig = {
+      github_ref: '',
+      github_repository: '',
+      github_token: '',
+      input_working_directory: undefined,
+      input_append_body: false,
+      input_body: undefined,
+      input_body_path: undefined,
+      input_draft: undefined,
+      input_prerelease: undefined,
+      input_preserve_order: undefined,
+      input_files: [],
+      input_overwrite_files: undefined,
+      input_name: undefined,
+      input_tag_name: undefined,
+      input_fail_on_unmatched_files: false,
+      input_target_commitish: undefined,
+      input_discussion_category_name: undefined,
+      input_generate_release_notes: false,
+      input_previous_tag: undefined,
+      input_make_latest: undefined,
+    };
+
     it('parses basic config', () => {
       assert.deepStrictEqual(
         parseConfig({
@@ -182,27 +209,7 @@ describe('util', () => {
           INPUT_TARGET_COMMITISH: '',
           INPUT_DISCUSSION_CATEGORY_NAME: '',
         }),
-        {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: undefined,
-          input_prerelease: undefined,
-          input_preserve_order: undefined,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
-        },
+        baseParsedConfig,
       );
     });
 
@@ -212,77 +219,48 @@ describe('util', () => {
           INPUT_TARGET_COMMITISH: 'affa18ef97bc9db20076945705aba8c516139abd',
         }),
         {
-          github_ref: '',
-          github_repository: '',
-          github_token: '',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
-          input_draft: undefined,
-          input_prerelease: undefined,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_preserve_order: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
+          ...baseParsedConfig,
           input_target_commitish: 'affa18ef97bc9db20076945705aba8c516139abd',
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
         },
       );
     });
     it('supports discussion category names', () => {
-      assert.deepStrictEqual(parseConfig({ INPUT_DISCUSSION_CATEGORY_NAME: 'releases' }), {
-        github_ref: '',
-        github_repository: '',
-        github_token: '',
-        input_working_directory: undefined,
-        input_append_body: false,
-        input_body: undefined,
-        input_body_path: undefined,
-        input_draft: undefined,
-        input_prerelease: undefined,
-        input_files: [],
-        input_preserve_order: undefined,
-        input_name: undefined,
-        input_overwrite_files: undefined,
-        input_tag_name: undefined,
-        input_fail_on_unmatched_files: false,
-        input_target_commitish: undefined,
-        input_discussion_category_name: 'releases',
-        input_generate_release_notes: false,
-        input_make_latest: undefined,
-      });
+      assert.deepStrictEqual(
+        parseConfig({
+          INPUT_DISCUSSION_CATEGORY_NAME: 'releases',
+        }),
+        {
+          ...baseParsedConfig,
+          input_discussion_category_name: 'releases',
+        },
+      );
     });
 
     it('supports generating release notes', () => {
-      assert.deepStrictEqual(parseConfig({ INPUT_GENERATE_RELEASE_NOTES: 'true' }), {
-        github_ref: '',
-        github_repository: '',
-        github_token: '',
-        input_working_directory: undefined,
-        input_append_body: false,
-        input_body: undefined,
-        input_body_path: undefined,
-        input_draft: undefined,
-        input_prerelease: undefined,
-        input_preserve_order: undefined,
-        input_files: [],
-        input_overwrite_files: undefined,
-        input_name: undefined,
-        input_tag_name: undefined,
-        input_fail_on_unmatched_files: false,
-        input_target_commitish: undefined,
-        input_discussion_category_name: undefined,
-        input_generate_release_notes: true,
-        input_make_latest: undefined,
-      });
+      assert.deepStrictEqual(
+        parseConfig({
+          INPUT_GENERATE_RELEASE_NOTES: 'true',
+        }),
+        {
+          ...baseParsedConfig,
+          input_generate_release_notes: true,
+        },
+      );
     });
 
-    it('prefers GITHUB_TOKEN over token input for backwards compatibility', () => {
+    it('supports an explicit previous tag for release notes generation', () => {
+      assert.deepStrictEqual(
+        parseConfig({
+          INPUT_PREVIOUS_TAG: '  v1.2.3  ',
+        }),
+        {
+          ...baseParsedConfig,
+          input_previous_tag: 'v1.2.3',
+        },
+      );
+    });
+
+    it('prefers token input over GITHUB_TOKEN', () => {
       assert.deepStrictEqual(
         parseConfig({
           INPUT_DRAFT: 'false',
@@ -292,25 +270,23 @@ describe('util', () => {
           INPUT_TOKEN: 'input-token',
         }),
         {
-          github_ref: '',
-          github_repository: '',
-          github_token: 'env-token',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
+          ...baseParsedConfig,
+          github_token: 'input-token',
           input_draft: false,
           input_prerelease: true,
           input_preserve_order: true,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
+        },
+      );
+    });
+    it('falls back to GITHUB_TOKEN when token input is empty', () => {
+      assert.deepStrictEqual(
+        parseConfig({
+          GITHUB_TOKEN: 'env-token',
+          INPUT_TOKEN: '   ',
+        }),
+        {
+          ...baseParsedConfig,
+          github_token: 'env-token',
         },
       );
     });
@@ -322,96 +298,51 @@ describe('util', () => {
           INPUT_TOKEN: 'input-token',
         }),
         {
-          github_ref: '',
-          github_repository: '',
+          ...baseParsedConfig,
           github_token: 'input-token',
-          input_working_directory: undefined,
-          input_append_body: false,
-          input_body: undefined,
-          input_body_path: undefined,
           input_draft: false,
           input_prerelease: true,
-          input_preserve_order: undefined,
-          input_files: [],
-          input_overwrite_files: undefined,
-          input_name: undefined,
-          input_tag_name: undefined,
-          input_fail_on_unmatched_files: false,
-          input_target_commitish: undefined,
-          input_discussion_category_name: undefined,
-          input_generate_release_notes: false,
-          input_make_latest: undefined,
         },
       );
     });
     it('parses basic config with draft and prerelease', () => {
-      assert.deepStrictEqual(parseConfig({ INPUT_DRAFT: 'false', INPUT_PRERELEASE: 'true' }), {
-        github_ref: '',
-        github_repository: '',
-        github_token: '',
-        input_working_directory: undefined,
-        input_append_body: false,
-        input_body: undefined,
-        input_body_path: undefined,
-        input_draft: false,
-        input_prerelease: true,
-        input_preserve_order: undefined,
-        input_files: [],
-        input_overwrite_files: undefined,
-        input_name: undefined,
-        input_tag_name: undefined,
-        input_fail_on_unmatched_files: false,
-        input_target_commitish: undefined,
-        input_discussion_category_name: undefined,
-        input_generate_release_notes: false,
-        input_make_latest: undefined,
-      });
+      assert.deepStrictEqual(
+        parseConfig({
+          INPUT_DRAFT: 'false',
+          INPUT_PRERELEASE: 'true',
+        }),
+        {
+          ...baseParsedConfig,
+          input_draft: false,
+          input_prerelease: true,
+        },
+      );
     });
     it('parses basic config where make_latest is passed', () => {
-      assert.deepStrictEqual(parseConfig({ INPUT_MAKE_LATEST: 'false' }), {
-        github_ref: '',
-        github_repository: '',
-        github_token: '',
-        input_working_directory: undefined,
-        input_append_body: false,
-        input_body: undefined,
-        input_body_path: undefined,
-        input_draft: undefined,
-        input_prerelease: undefined,
-        input_preserve_order: undefined,
-        input_files: [],
-        input_name: undefined,
-        input_overwrite_files: undefined,
-        input_tag_name: undefined,
-        input_fail_on_unmatched_files: false,
-        input_target_commitish: undefined,
-        input_discussion_category_name: undefined,
-        input_generate_release_notes: false,
-        input_make_latest: 'false',
-      });
+      assert.deepStrictEqual(
+        parseConfig({
+          INPUT_MAKE_LATEST: 'false',
+        }),
+        {
+          ...baseParsedConfig,
+          input_make_latest: 'false',
+        },
+      );
     });
     it('parses basic config with append_body', () => {
-      assert.deepStrictEqual(parseConfig({ INPUT_APPEND_BODY: 'true' }), {
-        github_ref: '',
-        github_repository: '',
-        github_token: '',
-        input_working_directory: undefined,
-        input_append_body: true,
-        input_body: undefined,
-        input_body_path: undefined,
-        input_draft: undefined,
-        input_prerelease: undefined,
-        input_preserve_order: undefined,
-        input_files: [],
-        input_overwrite_files: undefined,
-        input_name: undefined,
-        input_tag_name: undefined,
-        input_fail_on_unmatched_files: false,
-        input_target_commitish: undefined,
-        input_discussion_category_name: undefined,
-        input_generate_release_notes: false,
-        input_make_latest: undefined,
-      });
+      assert.deepStrictEqual(
+        parseConfig({
+          INPUT_APPEND_BODY: 'true',
+        }),
+        {
+          ...baseParsedConfig,
+          input_append_body: true,
+        },
+      );
+    });
+
+    it('normalizes refs/tags-prefixed input_tag_name values', () => {
+      expect(parseConfig({ INPUT_TAG_NAME: 'refs/tags/v1.2.3' }).input_tag_name).toBe('v1.2.3');
     });
   });
   describe('isTag', () => {
@@ -420,6 +351,16 @@ describe('util', () => {
     });
     it('returns false for other kinds of refs', async () => {
       assert.equal(isTag('refs/heads/master'), false);
+    });
+  });
+
+  describe('normalizeTagName', () => {
+    it('strips refs/tags/ from explicit tag names', () => {
+      assert.equal(normalizeTagName('refs/tags/v1.2.3'), 'v1.2.3');
+    });
+
+    it('leaves plain tag names unchanged', () => {
+      assert.equal(normalizeTagName('v1.2.3'), 'v1.2.3');
     });
   });
 
@@ -447,6 +388,56 @@ describe('util', () => {
       assert.deepStrictEqual(unmatchedPatterns(['data/does/not/exist/*'], 'tests'), [
         'data/does/not/exist/*',
       ]);
+    });
+  });
+
+  describe('normalizeGlobPattern', () => {
+    it('preserves posix-style patterns on non-windows platforms', () => {
+      assert.equal(normalizeGlobPattern('./dist/**/*.tgz', 'linux'), './dist/**/*.tgz');
+    });
+
+    it('normalizes relative windows-style glob patterns', () => {
+      assert.equal(
+        normalizeGlobPattern('.\\release-assets\\rssguard-*win7.exe', 'win32'),
+        './release-assets/rssguard-*win7.exe',
+      );
+    });
+
+    it('normalizes absolute windows-style glob patterns', () => {
+      assert.equal(
+        normalizeGlobPattern('D:\\a\\repo\\build\\packages\\*', 'win32'),
+        'D:/a/repo/build/packages/*',
+      );
+    });
+  });
+
+  describe('expandHomePattern', () => {
+    it('expands a bare tilde to the provided home directory', () => {
+      assert.equal(expandHomePattern('~', '/home/runner'), '/home/runner');
+    });
+
+    it('expands posix-style tilde paths', () => {
+      assert.equal(expandHomePattern('~/release.txt', '/home/runner'), '/home/runner/release.txt');
+    });
+
+    it('leaves non-tilde paths unchanged', () => {
+      assert.equal(expandHomePattern('./release.txt', '/home/runner'), './release.txt');
+    });
+  });
+
+  describe('normalizeFilePattern', () => {
+    it('expands tilde paths before globbing', () => {
+      assert.equal(
+        normalizeFilePattern('~/release-assets/*.tgz', 'linux', '/home/runner'),
+        '/home/runner/release-assets/*.tgz',
+      );
+    });
+
+    it('expands tilde paths and normalizes windows separators', () => {
+      assert.equal(
+        normalizeFilePattern('~\\release-assets\\*.zip', 'win32', 'C:\\Users\\runner'),
+        'C:/Users/runner/release-assets/*.zip',
+      );
     });
   });
 

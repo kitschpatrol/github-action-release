@@ -1,6 +1,6 @@
 {
   "name": "github-action-release",
-  "version": "2.5.2",
+  "version": "2.6.1",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases.",
   "keywords": [
