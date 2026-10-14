@@ -1,3 +1,82 @@
+## 3.0.3
+
+`3.0.3` is a maintenance release with updated dependencies. It also safely
+classifies malformed GitHub API errors to avoid secondary failures (#822).
+
+## What's Changed
+
+### Bug fixes 🐛
+
+* fix: safely classify GitHub API errors by @chenrui333 in https://github.com/softprops/action-gh-release/pull/822
+
+### Other Changes 🔄
+
+* dependency updates
+
+## 3.0.2
+
+`3.0.2` is a patch release focused on release reliability and compatibility. It
+reuses existing draft releases when publishing prereleases, supports replacing
+release assets on Gitea, hardens streamed asset uploads, and provides clearer
+release-creation diagnostics. It also includes TypeScript, coverage, and tooling
+maintenance merged since `3.0.1`.
+
+This release fixes #795, #438, and #803. The upload transport hardening covers the
+historical failure reported in #790, although current hosted Node 24 runners did
+not reproduce it naturally. The diagnostics work is related to #786 and does not
+claim a reproducible release-creation fix.
+
+## What's Changed
+
+### Exciting New Features 🎉
+
+* feat: improve release error reporting and test coverage by @chenrui333 in https://github.com/softprops/action-gh-release/pull/813
+
+### Bug fixes 🐛
+
+* fix: publish existing draft releases as prereleases by @godfengliang in https://github.com/softprops/action-gh-release/pull/801
+* fix: upload small checksum assets reliably by @chenrui333 in https://github.com/softprops/action-gh-release/pull/815
+* fix: replace existing release assets on Gitea by @chenrui333 in https://github.com/softprops/action-gh-release/pull/816
+* fix: clarify release creation 404 errors by @chenrui333 in https://github.com/softprops/action-gh-release/pull/817
+
+### Other Changes 🔄
+
+* chore(deps): upgrade TypeScript to 7 by @chenrui333 in https://github.com/softprops/action-gh-release/pull/812
+* chore(deps): remove unused TypeScript tooling by @chenrui333 in https://github.com/softprops/action-gh-release/pull/814
+* dependency, Node 24 pin, and CI maintenance merged since `3.0.1`
+
+## 3.0.1
+
+- maintenance release with updated dependencies
+
+## 3.0.0
+
+`3.0.0` is a major release that moves the action runtime from Node 20 to Node 24.
+Use `v3` on GitHub-hosted runners and self-hosted fleets that already support the
+Node 24 Actions runtime. `v2.6.2` was the final Node 20-compatible release and is
+no longer maintained or supported.
+
+## What's Changed
+
+### Other Changes 🔄
+
+* Move the action runtime and bundle target to Node 24
+* Update `@types/node` to the Node 24 line and allow future Dependabot updates
+* Keep the floating major tag on `v3`; freeze `v2` at the final `v2.6.2` release
+
+## 2.6.2
+
+`2.6.2` is the final `v2` release and is no longer maintained or supported. Upgrade
+to `v3` for the supported Node 24 runtime and current fixes.
+
+## What's Changed
+
+### Other Changes 🔄
+
+* chore(deps): bump picomatch from 4.0.3 to 4.0.4 by @dependabot[bot] in https://github.com/softprops/action-gh-release/pull/775
+* chore(deps): bump brace-expansion from 5.0.4 to 5.0.5 by @dependabot[bot] in https://github.com/softprops/action-gh-release/pull/777
+* chore(deps): bump vite from 8.0.0 to 8.0.5 by @dependabot[bot] in https://github.com/softprops/action-gh-release/pull/781
+
 ## 2.6.1
 
 `2.6.1` is a patch release focused on restoring linked discussion thread creation when

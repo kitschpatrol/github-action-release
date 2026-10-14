@@ -9,6 +9,8 @@ commits, tags, pushes, and moves the floating major tag.
 - Decide the semantic version bump: `major`, `minor`, or `patch`.
 - Add the new entry at the top of [CHANGELOG.md](CHANGELOG.md) and commit it.
   - Summarize the release in 1 short paragraph.
+  - If the summary mentions issues, use plain `#123` references or full issue
+    links; do not wrap issue numbers in backticks.
   - Prefer user-facing fixes and features over internal churn.
   - Keep the merged PR list aligned with `.github/release.yml` categories.
 - Run the local verification set:
@@ -31,8 +33,8 @@ This runs `pnpm build`, then `bumpp --commit 'Release: %s' --all`, then
    `Release: <version>`, tags it `v<version>`, and pushes both.
    - `--all` stages every dirty file, so the worktree must contain only intended
      release content when you start.
-3. `sync-major-tag.sh` force-moves the bare major tag (`v2`) to the new version
-   tag so `uses: …@v2` resolves to the latest release. Prereleases are skipped.
+3. `sync-major-tag.sh` force-moves the bare major tag (`v3`) to the new version
+   tag so `uses: …@v3` resolves to the latest release. Prereleases are skipped.
 
 Pushing the `v*.*.*` tag triggers
 [.github/workflows/github-release.yml](.github/workflows/github-release.yml),
@@ -43,7 +45,7 @@ the commits since the previous tag, and creates the GitHub release.
 
 - Verify the GitHub release shows the expected tag, title, notes, and attached
   artifacts.
-- Verify the `v2` tag points at the same commit as the new full tag.
+- Verify the `v3` tag points at the same commit as the new full tag.
 
 ## Notes
 
