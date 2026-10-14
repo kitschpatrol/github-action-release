@@ -613,8 +613,8 @@ export const release = async (
 };
 
 /**
- * Finalizes a release by unmarking it as "draft" (if relevant)
- * after all artifacts have been uploaded.
+ * Finalizes a release by unmarking it as "draft" (if relevant) after all
+ * artifacts have been uploaded.
  *
  * @param config - Release configuration as specified by user
  * @param releaser - The GitHub API wrapper for release operations
@@ -720,14 +720,16 @@ export const listReleaseAssets = async (
  * Finds a release by tag name.
  *
  * Uses the direct getReleaseByTag API for O(1) lookup instead of iterating
- * through all releases. This also avoids GitHub's API pagination limit of
- * 10000 results which would cause failures for repositories with many releases.
+ * through all releases. This also avoids GitHub's API pagination limit of 10000
+ * results which would cause failures for repositories with many releases.
  *
  * @param releaser - The GitHub API wrapper for release operations
  * @param owner - The owner of the repository
  * @param repo - The name of the repository
  * @param tag - The tag name to search for
- * @returns The release with the given tag name, or undefined if no release with that tag name is found
+ *
+ * @returns The release with the given tag name, or undefined if no release with
+ *   that tag name is found
  */
 export async function findTagFromReleases(
   releaser: Releaser,

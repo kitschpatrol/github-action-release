@@ -1,41 +1,56 @@
 # Release Workflow
 
-Use this checklist when cutting a new `action-gh-release` release.
+Releases are cut with `pnpm release`, which runs the build, bumps the version,
+commits, tags, pushes, and moves the floating major tag.
 
-## Inputs
+## Before releasing
 
-- Decide the semantic version bump first: `major`, `minor`, or `patch`.
-- Review recent merged PRs and labels before drafting the changelog entry.
-- Make sure `master` is current and the worktree is clean before starting.
+- Make sure `main` is current and the worktree is clean.
+- Decide the semantic version bump: `major`, `minor`, or `patch`.
+- Add the new entry at the top of [CHANGELOG.md](CHANGELOG.md) and commit it.
+  - Summarize the release in 1 short paragraph.
+  - Prefer user-facing fixes and features over internal churn.
+  - Keep the merged PR list aligned with `.github/release.yml` categories.
+- Run the local verification set:
+  - `pnpm lint`
+  - `pnpm typecheck`
+  - `pnpm test`
 
-## Checklist
+## Releasing
 
-1. Update [package.json](package.json) to the new version.
-2. Add the new entry at the top of [CHANGELOG.md](CHANGELOG.md).
-   - Summarize the release in 1 short paragraph.
-   - Prefer user-facing fixes and features over internal churn.
-   - Keep the merged PR list aligned with `.github/release.yml` categories.
-3. Run `npm i` to refresh [package-lock.json](package-lock.json).
-4. Run the full local verification set:
-   - `npm run fmtcheck`
-   - `npm run typecheck`
-   - `npm run build`
-   - `npm test`
-5. Commit the release prep.
-   - Use a plain release commit message like `release 2.5.4`.
-6. Create the annotated tag for the release commit.
-   - Example: `git tag -a v2.5.4 -m "v2.5.4"`
-7. Push the commit and tag.
-   - Example: `git push origin master && git push origin v2.5.4`
-8. Move the floating major tag to the new release tag.
-   - For the current major line, either run `npm run updatetag` or update the script first if the major ever changes.
-   - Verify the floating tag points at the same commit as the new full tag.
-9. Create the GitHub release from the new tag.
-   - Prefer the release body from [CHANGELOG.md](CHANGELOG.md), then let GitHub append generated notes only if they add value.
-   - Verify the release shows the expected tag, title, notes, and attached artifacts.
+```sh
+pnpm release
+```
+
+This runs `pnpm build`, then `bumpp --commit 'Release: %s' --all`, then
+[scripts/sync-major-tag.sh](scripts/sync-major-tag.sh):
+
+1. `bumpp` prompts for the new version and writes it to
+   [package.json](package.json).
+2. It commits everything in the worktree — including the rebuilt `dist/` — as
+   `Release: <version>`, tags it `v<version>`, and pushes both.
+   - `--all` stages every dirty file, so the worktree must contain only intended
+     release content when you start.
+3. `sync-major-tag.sh` force-moves the bare major tag (`v2`) to the new version
+   tag so `uses: …@v2` resolves to the latest release. Prereleases are skipped.
+
+Pushing the `v*.*.*` tag triggers
+[.github/workflows/github-release.yml](.github/workflows/github-release.yml),
+which verifies the tag is on the default branch, generates release notes from
+the commits since the previous tag, and creates the GitHub release.
+
+## After releasing
+
+- Verify the GitHub release shows the expected tag, title, notes, and attached
+  artifacts.
+- Verify the `v2` tag points at the same commit as the new full tag.
 
 ## Notes
 
-- Behavior changes should already have matching updates in [README.md](README.md), [action.yml](action.yml), tests, and `dist/index.js` before release prep begins.
-- Docs-only releases still need an intentional changelog entry and version bump decision.
-- If a release is mainly bug fixes, keep the title and summary patch-oriented; do not bury the actual fixes under dependency noise.
+- Behavior changes should already have matching updates in
+  [README.md](README.md), [action.yml](action.yml), and tests before you
+  release. `dist/index.js` is rebuilt for you by `pnpm release`.
+- Docs-only releases still need an intentional changelog entry and version bump
+  decision.
+- If a release is mainly bug fixes, keep the title and summary patch-oriented;
+  do not bury the actual fixes under dependency noise.

@@ -19,4 +19,4 @@ vendor/
 
 # Customizations
 __tests__/runner/*
-/.claude
+.claude/
