@@ -1,6 +1,6 @@
 {
   "name": "github-action-release",
-  "version": "2.6.1",
+  "version": "3.0.3",
   "private": true,
   "description": "GitHub Action for creating GitHub Releases.",
   "keywords": [
@@ -44,16 +44,13 @@
   },
   "devDependencies": {
     "@kitschpatrol/prettier-config": "^7.6.4",
-    "@types/glob": "^9.0.0",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^20.19.43",
     "@vitest/coverage-v8": "^4.1.11",
     "bumpp": "^12.3.0",
     "rolldown": "^1.2.12",
     "shx": "^0.4.0",
-    "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
-    "typescript-formatter": "^7.2.2",
     "vitest": "^4.1.11"
   },
   "packageManager": "pnpm@12.11.2",
