@@ -21,7 +21,7 @@ Original readme below:
 
 <div align="center">
   <a href="https://github.com/softprops/action-gh-release/actions">
-		<img src="https://github.com/softprops/action-gh-release/workflows/Main/badge.svg"/>
+		<img src="https://github.com/softprops/action-gh-release/actions/workflows/main.yml/badge.svg"/>
 	</a>
 </div>
 
@@ -29,7 +29,7 @@ Original readme below:
 
 - [🤸 Usage](#-usage)
   - [🚥 Limit releases to pushes to tags](#-limit-releases-to-pushes-to-tags)
-  - [⬆️ Uploading release assets](#️-uploading-release-assets)
+  - [📤 Uploading release assets](#-uploading-release-assets)
   - [📝 External release notes](#-external-release-notes)
   - [💅 Customizing](#-customizing)
     - [inputs](#inputs)
@@ -89,7 +89,7 @@ jobs:
         uses: softprops/action-gh-release@v3
 ```
 
-### ⬆️ Uploading release assets
+### 📤 Uploading release assets
 
 You can configure a number of options for your
 GitHub release and all are optional.
@@ -234,8 +234,8 @@ The following are optional as `step.with` keys
 | `fail_on_unmatched_files` | Boolean | Indicator of whether to fail if any of the `files` globs match nothing |
 | `repository` | String | Name of a target repository in `<owner>/<repo>` format. Defaults to GITHUB_REPOSITORY env variable |
 | `target_commitish` | String | Commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Defaults to repository default branch. When creating a new tag for an older commit, `github.token` may not have permission to create the ref; use a PAT or another token with sufficient contents permissions if you hit `403 Resource not accessible by integration`. |
-| `token` | String | Authorized GitHub token or PAT. Defaults to `${{ github.token }}` when omitted. A non-empty explicit token overrides `GITHUB_TOKEN`. Passing `""` treats the token as explicitly unset, so omit the input entirely or use an expression such as `${{ inputs.token                                                                                                                                                                                                      |     | github.token }}` when wrapping this action in a composite action. |
-| `discussion_category_name` | String | If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see ["Managing categories for discussions in your repository."](https://docs.github.com/en/discussions/managing-discussions-for-your-community/managing-categories-for-discussions-in-your-repository) |
+| `token` | String | Authorized GitHub token or PAT. Defaults to `${{ github.token }}` when omitted. A non-empty explicit token overrides `GITHUB_TOKEN`. Passing `""` treats the token as explicitly unset, so omit the input entirely or use an expression such as `${{ inputs.token \|\| github.token }}` when wrapping this action in a composite action. |
+| `discussion_category_name` | String | If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see ["Managing categories for discussions in your repository."](https://docs.github.com/en/discussions/managing-discussions-for-your-community/managing-categories-for-discussions) |
 | `generate_release_notes` | Boolean | Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes. See the [GitHub docs for this feature](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes) for more information |
 | `previous_tag` | String | Optional. When `generate_release_notes` is enabled, use this tag as GitHub's `previous_tag_name` comparison base. If omitted, GitHub chooses the comparison base automatically. |
 | `append_body` | Boolean | Append to existing body instead of overwriting it |
@@ -307,7 +307,7 @@ permissions:
   discussions: write
 ```
 
-[GitHub token permissions](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token) can be set for an individual job, workflow, or for Actions as a whole.
+[GitHub token permissions](https://docs.github.com/en/actions/tutorials/authenticate-with-github_token#modifying-the-permissions-for-the-github_token) can be set for an individual job, workflow, or for Actions as a whole.
 
 Note that if you intend to run workflows on the release event (`on: { release: { types: [published] } }`), you need to use
 a personal access token for this action, as the [default `secrets.GITHUB_TOKEN` does not trigger another workflow](https://github.com/actions/create-release/issues/71).

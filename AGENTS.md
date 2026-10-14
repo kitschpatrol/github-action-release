@@ -45,7 +45,7 @@ When behavior changes, keep the external contract in sync:
 - update `README.md`
 - update `action.yml`
 - update tests under `__tests__/`
-- regenerate `dist/index.js` with `npm run build`
+- regenerate `dist/index.js` with `pnpm run build`
 
 Docs-only changes do not need `dist/index.js` regeneration.
 
@@ -53,10 +53,10 @@ Docs-only changes do not need `dist/index.js` regeneration.
 
 For code changes, run:
 
-- `npm run fmtcheck`
-- `npm run typecheck`
-- `npm run build`
-- `npm test`
+- `pnpm run lint`
+- `pnpm run typecheck`
+- `pnpm run build`
+- `pnpm test`
 
 For behavior changes, also run the relevant external regression workflow(s) in `action-gh-release-test` against the exact ref under test.
 
