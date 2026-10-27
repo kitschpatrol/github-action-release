@@ -11,6 +11,7 @@
     "type": "git",
     "url": "git+https://github.com/kitschpatrol/github-action-release.git"
   },
+  "license": "MIT",
   "author": {
     "name": "Doug Tangren",
     "email": "d.tangren@gmail.com",
@@ -28,8 +29,8 @@
     "build": "rolldown -c rolldown.config.ts --minify",
     "build-debug": "rolldown -c rolldown.config.ts --sourcemap",
     "clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX -e !.claude/",
-    "fix": "ksc-prettier fix",
-    "lint": "ksc-prettier lint",
+    "fix": "ksc-mdat fix && ksc-prettier fix",
+    "lint": "ksc-mdat lint && ksc-prettier lint",
     "release": "pnpm run build && bumpp --commit 'Release: %s' --all && ./scripts/sync-major-tag.sh",
     "test": "vitest --coverage",
     "typecheck": "tsc --noEmit"
@@ -43,6 +44,7 @@
     "mime-types": "^3.0.2"
   },
   "devDependencies": {
+    "@kitschpatrol/mdat-config": "^8.13.1",
     "@kitschpatrol/prettier-config": "^7.6.4",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^20.19.43",

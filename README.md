@@ -1,4 +1,11 @@
-Unmodified fork of [softprops/action-gh-release](https://github.com/softprops/action-gh-release).
+<!-- badges({ githubRelease: true }) -->
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/license/mit)
+[![GitHub Release](https://img.shields.io/github/v/release/kitschpatrol/github-action-release?label=Release)](https://github.com/kitschpatrol/github-action-release/releases/latest)
+
+<!-- /badges -->
+
+Fork of [softprops/action-gh-release](https://github.com/softprops/action-gh-release).
 
 Original readme below:
 
@@ -6,8 +13,7 @@ Original readme below:
 
 <div align="center">
   📦 :octocat:
-</div>
-<h1 align="center">
+</div> <h1 align="center">
   action gh-release
 </h1>
 
@@ -18,13 +24,6 @@ Original readme below:
 <div align="center">
   <img src="demo.png"/>
 </div>
-
-<div align="center">
-  <a href="https://github.com/softprops/action-gh-release/actions">
-		<img src="https://github.com/softprops/action-gh-release/actions/workflows/main.yml/badge.svg"/>
-	</a>
-</div>
-
 <br />
 
 - [🤸 Usage](#-usage)
@@ -219,27 +218,27 @@ comparison range does not match the release series you want to publish.
 
 The following are optional as `step.with` keys
 
-| Name | Type | Description |
-| -------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ----------------------------------------------------------------- |
-| `body` | String | Text communicating notable changes in this release |
-| `body_path` | String | Path to load text communicating notable changes in this release |
-| `draft` | Boolean | Keep the release as a draft. Defaults to false. When reusing an existing draft release, set this to true to keep it draft; omit it to publish after upload. |
-| `prerelease` | Boolean | Indicator of whether or not is a prerelease |
-| `preserve_order` | Boolean | Upload assets sequentially in the provided order. This controls the action's upload behavior, but it does not control the final asset ordering that GitHub may display on the release page or return from the Releases API. |
-| `files` | String | Newline-delimited globs of paths to assets to upload for release. Escape glob metacharacters when you need to match a literal filename that contains them, such as `[` or `]`. `~/...` expands to the runner home directory. On Windows, both `\` and `/` separators are accepted. GitHub may normalize raw asset filenames that contain special characters; the action restores the asset label when possible, but the final download name remains GitHub-controlled. |
-| `working_directory` | String | Base directory to resolve `files` globs against. Use this when release assets live under a subdirectory. If omitted, the action resolves `files` from `${{ github.workspace }}`. |
-| `overwrite_files` | Boolean | Indicator of whether files should be overwritten when they already exist. Defaults to true |
-| `name` | String | Name of the release. defaults to tag name |
-| `tag_name` | String | Name of a tag. defaults to `github.ref_name`. `refs/tags/<name>` values are normalized to `<name>`. |
-| `fail_on_unmatched_files` | Boolean | Indicator of whether to fail if any of the `files` globs match nothing |
-| `repository` | String | Name of a target repository in `<owner>/<repo>` format. Defaults to GITHUB_REPOSITORY env variable |
-| `target_commitish` | String | Commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Defaults to repository default branch. When creating a new tag for an older commit, `github.token` may not have permission to create the ref; use a PAT or another token with sufficient contents permissions if you hit `403 Resource not accessible by integration`. |
-| `token` | String | Authorized GitHub token or PAT. Defaults to `${{ github.token }}` when omitted. A non-empty explicit token overrides `GITHUB_TOKEN`. Passing `""` treats the token as explicitly unset, so omit the input entirely or use an expression such as `${{ inputs.token \|\| github.token }}` when wrapping this action in a composite action. |
-| `discussion_category_name` | String | If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see ["Managing categories for discussions in your repository."](https://docs.github.com/en/discussions/managing-discussions-for-your-community/managing-categories-for-discussions) |
-| `generate_release_notes` | Boolean | Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes. See the [GitHub docs for this feature](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes) for more information |
-| `previous_tag` | String | Optional. When `generate_release_notes` is enabled, use this tag as GitHub's `previous_tag_name` comparison base. If omitted, GitHub chooses the comparison base automatically. |
-| `append_body` | Boolean | Append to existing body instead of overwriting it |
-| `make_latest` | String | Specifies whether this release should be set as the latest release for the repository. Drafts and prereleases cannot be set as latest. Can be `true`, `false`, or `legacy`. Uses GitHub api defaults if not provided |
+\| Name | Type | Description |
+\| -------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | ----------------------------------------------------------------- |
+\| `body` | String | Text communicating notable changes in this release |
+\| `body_path` | String | Path to load text communicating notable changes in this release |
+\| `draft` | Boolean | Keep the release as a draft. Defaults to false. When reusing an existing draft release, set this to true to keep it draft; omit it to publish after upload. |
+\| `prerelease` | Boolean | Indicator of whether or not is a prerelease |
+\| `preserve_order` | Boolean | Upload assets sequentially in the provided order. This controls the action's upload behavior, but it does not control the final asset ordering that GitHub may display on the release page or return from the Releases API. |
+\| `files` | String | Newline-delimited globs of paths to assets to upload for release. Escape glob metacharacters when you need to match a literal filename that contains them, such as `[` or `]`. `~/...` expands to the runner home directory. On Windows, both `\` and `/` separators are accepted. GitHub may normalize raw asset filenames that contain special characters; the action restores the asset label when possible, but the final download name remains GitHub-controlled. |
+\| `working_directory` | String | Base directory to resolve `files` globs against. Use this when release assets live under a subdirectory. If omitted, the action resolves `files` from `${{ github.workspace }}`. |
+\| `overwrite_files` | Boolean | Indicator of whether files should be overwritten when they already exist. Defaults to true |
+\| `name` | String | Name of the release. defaults to tag name |
+\| `tag_name` | String | Name of a tag. defaults to `github.ref_name`. `refs/tags/<name>` values are normalized to `<name>`. |
+\| `fail_on_unmatched_files` | Boolean | Indicator of whether to fail if any of the `files` globs match nothing |
+\| `repository` | String | Name of a target repository in `<owner>/<repo>` format. Defaults to GITHUB_REPOSITORY env variable |
+\| `target_commitish` | String | Commitish value that determines where the Git tag is created from. Can be any branch or commit SHA. Defaults to repository default branch. When creating a new tag for an older commit, `github.token` may not have permission to create the ref; use a PAT or another token with sufficient contents permissions if you hit `403 Resource not accessible by integration`. |
+\| `token` | String | Authorized GitHub token or PAT. Defaults to `${{ github.token }}` when omitted. A non-empty explicit token overrides `GITHUB_TOKEN`. Passing `""` treats the token as explicitly unset, so omit the input entirely or use an expression such as `${{ inputs.token \|\| github.token }}` when wrapping this action in a composite action. |
+\| `discussion_category_name` | String | If specified, a discussion of the specified category is created and linked to the release. The value must be a category that already exists in the repository. For more information, see ["Managing categories for discussions in your repository."](https://docs.github.com/en/discussions/managing-discussions-for-your-community/managing-categories-for-discussions) |
+\| `generate_release_notes` | Boolean | Whether to automatically generate the name and body for this release. If name is specified, the specified name will be used; otherwise, a name will be automatically generated. If body is specified, the body will be pre-pended to the automatically generated notes. See the [GitHub docs for this feature](https://docs.github.com/en/repositories/releasing-projects-on-github/automatically-generated-release-notes) for more information |
+\| `previous_tag` | String | Optional. When `generate_release_notes` is enabled, use this tag as GitHub's `previous_tag_name` comparison base. If omitted, GitHub chooses the comparison base automatically. |
+\| `append_body` | Boolean | Append to existing body instead of overwriting it |
+\| `make_latest` | String | Specifies whether this release should be set as the latest release for the repository. Drafts and prereleases cannot be set as latest. Can be `true`, `false`, or `legacy`. Uses GitHub api defaults if not provided |
 
 💡 When providing a `body` and `body_path` at the same time, `body_path` will be
 attempted first, then falling back on `body` if the path can not be read from.
