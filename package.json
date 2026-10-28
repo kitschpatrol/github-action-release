@@ -28,7 +28,7 @@
   "scripts": {
     "build": "rolldown -c rolldown.config.ts --minify",
     "build-debug": "rolldown -c rolldown.config.ts --sourcemap",
-    "clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX -e !.claude/",
+    "clean-deep": "shx rm -f pnpm-lock.yaml && git clean -fdX",
     "fix": "ksc-mdat fix && ksc-prettier fix",
     "lint": "ksc-mdat lint && ksc-prettier lint",
     "release": "pnpm run build && bumpp --commit 'Release: %s' --all && ./scripts/sync-major-tag.sh",
@@ -44,7 +44,7 @@
     "mime-types": "^3.0.2"
   },
   "devDependencies": {
-    "@kitschpatrol/mdat-config": "^8.13.1",
+    "@kitschpatrol/mdat-config": "^8.14.0",
     "@kitschpatrol/prettier-config": "^7.6.4",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^20.19.43",
@@ -55,7 +55,7 @@
     "typescript": "^5.9.3",
     "vitest": "^4.1.11"
   },
-  "packageManager": "pnpm@12.11.2",
+  "packageManager": "pnpm@12.15.0",
   "engines": {
     "node": ">=20.19.0",
     "pnpm": ">=9.0.0"
